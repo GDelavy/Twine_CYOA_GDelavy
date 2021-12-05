@@ -124,9 +124,14 @@ var LZString={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
   margin-top: 0;
 }
 
-.MapSpace
+.DisplaySpace
 {
  height: 232px; 
+}
+
+.EnvironmentTitle
+{
+ margin: 0px;
 }</style><script role="script" id="twine-user-script" type="text/twine-javascript">/* Prevents player from getting stuck in a loop if they click on the inventory twice. Inventory passage must be tagged "noreturn".
 Code by Greyelf : http://twinery.org/forum/discussion/4946/how-do-i-get-around-return-and-back-getting-me-into-a-loop */
 
@@ -134,15 +139,16 @@ $(document).on(':passagestart', function (ev) {
 	if (!ev.passage.tags.includes('noreturn')) {
 		State.variables.return = ev.passage.title;
 	}
-});</script><tw-passagedata pid="1" name="Starting Screen" tags="hasMap" position="860,398" size="100,100">&lt;h1 style=&quot;text-align:center&quot;&gt;Welcome to TITLE!&lt;/h1&gt;
+});</script><tw-passagedata pid="1" name="Starting Screen" tags="hasMap hasEnv" position="860,398" size="100,100">&lt;h1 style=&quot;text-align:center&quot;&gt;Welcome to TITLE!&lt;/h1&gt;
 Game Synopsis goes here
 
+It is recommended to play this game on a computer screen. Smartphones and tablets may have screens that are too small.
 
-[[Start Game|Introduction]]</tw-passagedata><tw-passagedata pid="2" name="Introduction" tags="hasMap" position="859,526" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="3" name="StoryMenu" tags="" position="459,434" size="100,100">[[Inventory]]</tw-passagedata><tw-passagedata pid="4" name="Inventory" tags="noreturn" position="456,544" size="100,100">You check your pockets and your backpack. In total, you have :
+[[Start Game|Introduction]]</tw-passagedata><tw-passagedata pid="2" name="Introduction" tags="hasMap hasEnv" position="859,526" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="3" name="StoryMenu" tags="" position="459,434" size="100,100">[[Inventory]]</tw-passagedata><tw-passagedata pid="4" name="Inventory" tags="noreturn" position="456,544" size="100,100">You check your pockets and your backpack. In total, you have :
 
 TODO : ADD INTERACTIVE LIST OF ITEMS
 
-&lt;&lt;link &quot;Return&quot; $return&gt;&gt;&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="5" name="StoryInit" tags="" position="1375,401" size="100,100">* CODE WRITTEN HERE IS EXECUTED AT LAUNCH *</tw-passagedata><tw-passagedata pid="6" name="PassageDone" tags="" position="1374,505" size="100,100">* MODIFIES MAP IMAGE DEPENDING ON PASSAGE *
+&lt;&lt;link &quot;Return&quot; $return&gt;&gt;&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="5" name="StoryInit" tags="" position="1375,401" size="100,100">* CODE WRITTEN HERE IS EXECUTED AT LAUNCH *</tw-passagedata><tw-passagedata pid="6" name="PassageDone" tags="" position="1375,505" size="100,100">* MODIFIES MAP IMAGE DEPENDING ON PASSAGE *
 
 &lt;&lt;if tags().includes(&quot;hasMap&quot;)&gt;&gt;
 	&lt;&lt;set $mapSrc = &quot;Images/Maps/&quot; + passage() + &quot;.png&quot;&gt;&gt;
@@ -150,12 +156,21 @@ TODO : ADD INTERACTIVE LIST OF ITEMS
 
 How mapping works:
 - Add &quot;hasMap&quot; tag to the passages that have a map
-- Create the map and put it inside the Images/Maps file with the same name as the passage</tw-passagedata><tw-passagedata pid="7" name="PassageHeader" tags="" position="1496,397" size="100,100">&lt;div id=&quot;header&quot;&gt;
-&lt;&lt;print passage()&gt;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="8" name="StoryCaption" tags="" position="352,434" size="100,100">/* MAP DISPLAY */
+- Create the map and put it inside the Images/Maps file with the same name as the passage
 
-&lt;div class=&quot;MapSpace&quot;&gt; /* Reduces movement when map img loading */
-[img[$mapSrc]]
+* MODIFIES ENVIRONMENT IMAGE DEPENDING ON PASSAGE *
+
+&lt;&lt;if tags().includes(&quot;hasEnv&quot;)&gt;&gt;
+	&lt;&lt;set $envSrc = &quot;Images/Environment/&quot; + passage() + &quot;.jfif&quot;&gt;&gt;
+	&lt;&lt;set $envImg = &#39;&lt;img src=&quot;&#39; + $envSrc + &#39;&quot; width =100%&gt;&#39;&gt;&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="7" name="PassageHeader" tags="" position="1496,397" size="100,100">&lt;div id=&quot;header&quot;&gt;
+&lt;&lt;print passage()&gt;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="8" name="StoryCaption" tags="" position="352,433" size="100,100">&lt;div class=&quot;DisplaySpace&quot;&gt; /* Reduces movement when map img loading */
+[img[$mapSrc]] /* MAP DISPLAY */
+&lt;/div&gt;
+&lt;div class=&quot;DisplaySpace&quot;&gt; /* Reduces movement when img loading */
+&lt;h3 class=&quot;EnvironmentTitle&quot;&gt;Environment:&lt;/h3&gt;
+$envImg /* ENVIRONMENT DISPLAY */
 &lt;/div&gt;</tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
 	/*! SugarCube JS */
